@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1760395957504,
+      "tag": "0000_even_gateway",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1760404592848,
+      "tag": "0001_outgoing_speedball",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1760481398732,
+      "tag": "0002_premium_vampiro",
+      "breakpoints": true
+    }
+  ]
+}
