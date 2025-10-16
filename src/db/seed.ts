@@ -99,7 +99,6 @@ async function main() {
 
   console.log('✅ Estacionamentos criados:', estacionamentosCriados.length);
 
-
   const associacoes = [
     // Admin tem acesso a todos
     ...estacionamentosCriados.map((e) => ({
@@ -125,12 +124,28 @@ async function main() {
   const statusList = ['livre', 'ocupada', 'bloqueada'] as const;
 
   for (const est of estacionamentosCriados) {
-    const vagasData = Array.from({ length: est.qtdVagas }, (_, i) => ({
-      numero: `${est.nome.split(' ')[1][0]}-${i + 1}`,
-      tipo: tipos[Math.floor(Math.random() * tipos.length)],
-      status: statusList[Math.floor(Math.random() * statusList.length)],
-      estacionamento_id: est.id,
-    }));
+    const vagasData = Array.from({ length: est.qtdVagas }, (_, i) => {
+      const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+      let prefix = '';
+      switch (tipo) {
+        case 'carro':
+          prefix = 'C';
+          break;
+        case 'moto':
+          prefix = 'M';
+          break;
+        case 'deficiente':
+          prefix = 'D';
+          break;
+      }
+
+      return {
+        numero: `${prefix}${i + 1}`,
+        tipo,
+        status: statusList[Math.floor(Math.random() * statusList.length)],
+        estacionamento_id: est.id,
+      };
+    });
 
     await db.insert(vagas).values(vagasData);
     console.log(`🚗 ${vagasData.length} vagas criadas em ${est.nome}`);
